@@ -224,7 +224,19 @@
         </div>
     </footer>
 
-    <!-- START: Phần Botpress Chatbot - THAY ĐỔI CÁCH CHÈN ĐỂ ĐẢM BẢO HIỂN THỊ ICON -->
+    <!-- START: Phần Botpress Chatbot - PHƯƠNG PHÁP NHÚNG ĐỒNG BỘ CẢI TIẾN VÀ BUỘC HIỂN THỊ CSS -->
+    <!-- THÊM CSS NÀY để buộc widget hiển thị (Giải pháp mạnh mẽ nhất cho lỗi ẩn/CSS) -->
+    <style>
+        /* Buộc container của Botpress (bp-web-widget-container) luôn hiển thị và nằm trên cùng */
+        #bp-web-widget-container,
+        #bp-widget {
+            /* Đảm bảo widget nổi trên mọi thứ */
+            z-index: 99999 !important; 
+            /* Đảm bảo không bị ẩn bởi display: none */
+            display: block !important;
+        }
+    </style>
+    
     <script>
         // SCRIPT cho mobile menu: Giữ nguyên
         document.getElementById('mobile-menu').addEventListener('click', function() {
@@ -232,19 +244,21 @@
             nav.classList.toggle('active');
         });
         
-        // **PHƯƠNG PHÁP NHÚNG ĐỒNG BỘ MỚI**
-        // 1. Định nghĩa đối tượng cấu hình Botpress trên window
+        // **PHƯƠNG PHÁP NHÚNG ĐỒNG BỘ BOTPRESS V3 (Tối ưu nhất)**
+        // Định nghĩa đối tượng cấu hình Botpress trên window trước khi tải script
         window.botpressWebChat = {
             init: {
                 configUrl: "https://files.bpcontent.cloud/2025/10/14/11/20251014110823-MB3Y4GMX.json",
                 "composerPlaceholder": "Chat với chúng tôi!",
                 "botName": "Bách khoa toàn thư Vinh Lộc",
                 // Tham số quan trọng để đảm bảo nút nổi (floating button) hiển thị
-                "floatingButton": true 
+                "floatingButton": true,
+                // Tắt chế độ tự ẩn khi không hoạt động (giúp icon luôn ở đó)
+                "enableIdleVisibility": false 
             }
         };
 
-        // 2. Tải script Botpress ngay sau khi cấu hình được định nghĩa.
+        // Tải script Botpress ngay sau khi cấu hình được định nghĩa.
         // Script sẽ tự động nhận cấu hình và khởi tạo chatbot ngay lập tức.
     </script>
     <script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>
