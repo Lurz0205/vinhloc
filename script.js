@@ -1,79 +1,57 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    // 1. Cuộn mượt khi click vào menu
+    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
 
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         });
     });
 
-    // Handle Contact Form Submission (Example - no backend)
-    const contactForm = document.getElementById('contactForm');
+    // 2. Xử lý Form Liên Hệ cơ bản (chỉ in ra console)
+    const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent actual form submission
-
+            e.preventDefault();
+            
+            // Lấy dữ liệu form
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
 
-            // In a real application, you would send this data to a server
-            console.log('Form Submitted:', { name, email, subject, message });
+            console.log('--- Dữ liệu Form Liên Hệ ---');
+            console.log('Họ và Tên:', name);
+            console.log('Email:', email);
+            console.log('Nội dung:', message);
 
-            alert('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất có thể.');
+            // Thông báo thành công cơ bản (thực tế cần AJAX để gửi dữ liệu)
+            alert('Yêu cầu tư vấn của bạn đã được gửi đi thành công! Chúng tôi sẽ liên hệ lại sớm nhất.');
             
-            // Clear the form
+            // Reset form
             contactForm.reset();
         });
     }
 
-    // Optional: Add a "back to top" button
-    const backToTopButton = document.createElement('button');
-    backToTopButton.textContent = '↑ Lên đầu trang';
-    backToTopButton.classList.add('back-to-top');
-    document.body.appendChild(backToTopButton);
-
+    // 3. Tùy chọn: Thêm class "scrolled" cho navbar khi cuộn (cho hiệu ứng)
+    const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) { // Show button after scrolling 300px
-            backToTopButton.style.display = 'block';
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
         } else {
-            backToTopButton.style.display = 'none';
+            navbar.classList.remove('scrolled');
         }
     });
-
-    backToTopButton.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-
-    // Add styles for back-to-top button dynamically if not in CSS
-    const style = document.createElement('style');
-    style.innerHTML = `
-        .back-to-top {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--secondary-color);
-            color: var(--white);
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9em;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            z-index: 1001;
-            transition: background-color 0.3s ease;
-        }
-        .back-to-top:hover {
-            background-color: var(--primary-color);
-        }
-    `;
-    document.head.appendChild(style);
+    // Thêm CSS cho hiệu ứng này vào style.css nếu cần:
+    /*
+    .scrolled {
+        padding: 5px 0;
+    }
+    */
 });
