@@ -224,23 +224,18 @@
         </div>
     </footer>
 
-    <!-- START: Phần Botpress Chatbot -->
-    <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+    <!-- START: Phần Botpress Chatbot - SỬ DỤNG CONFIG URL MỚI -->
+    <!-- Dùng script Botpress v3.3 -->
+    <script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>
     <script>
+        // Lấy Config URL từ link bạn cung cấp, chỉ lấy phần JSON
+        const configUrl = "https://files.bpcontent.cloud/2025/10/14/11/20251014110823-MB3Y4GMX.json";
+        
+        // Khởi tạo bot bằng Config URL
         window.botpressWebChat.init({
-          "composerPlaceholder": "Chat với chúng tôi!",
-          // BOT ID ĐÃ ĐƯỢC XÁC NHẬN VÀ DÁN VÀO ĐÚNG CÁCH
-          "botId": "b8b8a01f-4f8e-41c0-ac33-f752061b6513", 
-          "hostUrl": "https://cdn.botpress.cloud/webchat/v1",
-          "messagingUrl": "https://messaging.botpress.cloud",
-          "botName": "Bách khoa toàn thư Vinh Lộc", // Cập nhật tên bot theo ảnh bạn gửi
-          // Bạn có thể tùy chỉnh stylesheet này nếu muốn thay đổi giao diện bot
-          "stylesheet": "https://webchat-styler-css.botpress.app/prod/code/a57a0772-5197-4277-94d3-0579e26e036a/v97491/style.css",
-          "lazySocket": true,
-          "frontendVersion": "v1",
-          "showPoweredBy": true,
-          // Thay thế placeholder bằng URL ảnh đại diện bot của bạn
-          "avatarUrl": "https://i.imgur.com/your-avatar.png" 
+          configUrl: configUrl,
+          "composerPlaceholder": "Chat với chúng tôi!", // Thêm tùy chỉnh nếu cần
+          "botName": "Bách khoa toàn thư Vinh Lộc"
         });
         
         // SCRIPT cho mobile menu
