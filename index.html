@@ -224,18 +224,7 @@
         </div>
     </footer>
 
-    <!-- START: Phần Botpress Chatbot - PHƯƠNG PHÁP NHÚNG ĐỒNG BỘ CẢI TIẾN VÀ BUỘC HIỂN THỊ CSS -->
-    <!-- THÊM CSS NÀY để buộc widget hiển thị (Giải pháp mạnh mẽ nhất cho lỗi ẩn/CSS) -->
-    <style>
-        /* Buộc container của Botpress (bp-web-widget-container) luôn hiển thị và nằm trên cùng */
-        #bp-web-widget-container,
-        #bp-widget {
-            /* Đảm bảo widget nổi trên mọi thứ */
-            z-index: 99999 !important; 
-            /* Đảm bảo không bị ẩn bởi display: none */
-            display: block !important;
-        }
-    </style>
+    <!-- START: Phần Botpress Chatbot - GIẢI PHÁP TẢI ĐỘNG VÀ KÉO DÀI THỜI GIAN -->
     
     <script>
         // SCRIPT cho mobile menu: Giữ nguyên
@@ -244,24 +233,30 @@
             nav.classList.toggle('active');
         });
         
-        // **PHƯƠNG PHÁP NHÚNG ĐỒNG BỘ BOTPRESS V3 (Tối ưu nhất)**
-        // Định nghĩa đối tượng cấu hình Botpress trên window trước khi tải script
-        window.botpressWebChat = {
-            init: {
-                configUrl: "https://files.bpcontent.cloud/2025/10/14/11/20251014110823-MB3Y4GMX.json",
-                "composerPlaceholder": "Chat với chúng tôi!",
-                "botName": "Bách khoa toàn thư Vinh Lộc",
-                // Tham số quan trọng để đảm bảo nút nổi (floating button) hiển thị
-                "floatingButton": true,
-                // Tắt chế độ tự ẩn khi không hoạt động (giúp icon luôn ở đó)
-                "enableIdleVisibility": false 
-            }
-        };
+        // **GIẢI PHÁP TẢI ĐỘNG BOTPRESS V3**
+        // Đặt cấu hình và chèn script sau một độ trễ nhỏ để đảm bảo môi trường tải sẵn sàng (thường khắc phục vấn đề iframe/timing)
+        setTimeout(function() {
+            // Định nghĩa đối tượng cấu hình Botpress trên window
+            window.botpressWebChat = {
+                init: {
+                    configUrl: "https://files.bpcontent.cloud/2025/10/14/11/20251014110823-MB3Y4GMX.json",
+                    "composerPlaceholder": "Chat với chúng tôi!",
+                    "botName": "Bách khoa toàn thư Vinh Lộc",
+                    // Tham số quan trọng để đảm bảo nút nổi (floating button) hiển thị
+                    "floatingButton": true,
+                    // Tắt chế độ tự ẩn khi không hoạt động (giúp icon luôn ở đó)
+                    "enableIdleVisibility": false 
+                }
+            };
 
-        // Tải script Botpress ngay sau khi cấu hình được định nghĩa.
-        // Script sẽ tự động nhận cấu hình và khởi tạo chatbot ngay lập tức.
+            // Tải script Botpress động (chèn thẻ script vào body)
+            const script = document.createElement('script');
+            script.src = "https://cdn.botpress.cloud/webchat/v3/inject.js";
+            script.async = true; // Tải bất đồng bộ
+            document.body.appendChild(script);
+
+        }, 100); // Độ trễ 100ms
     </script>
-    <script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>
     <!-- END: Phần Botpress Chatbot -->
 
     <!-- Thêm script.js cho các chức năng khác (nếu có) -->
