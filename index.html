@@ -12,7 +12,8 @@
 
     <!-- START: KHU VỰC CHÈN BANNER TRƯỜNG HỌC -->
     <section id="top-banner">
-        <img src="banner.jpg" alt="Banner Trường Vinh Lộc"> -->
+        <!-- Vui lòng thay thế "banner.jpg" này bằng URL ảnh TRỰC TIẾP (Raw URL) bạn lấy từ GitHub. -->
+        <img src="banner.jpg" alt="Banner Trường Vinh Lộc - Ảnh cổng trường">
     </section>
     <!-- END: KHU VỰC CHÈN BANNER TRƯỜNG HỌC -->
 
@@ -38,17 +39,9 @@
         </div>
     </header>
 
-    <!-- Các Section Nội Dung (Giữ nguyên) -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <p class="pre-slogan">TRƯỜNG THPT VINH LỘC</p>
-                <h2>Kiến tạo tương lai vững chắc</h2>
-                <p class="slogan">Bồi dưỡng nhân cách toàn diện – Xứng đáng là địa chỉ giáo dục đáng tin cậy.</p>
-                <a href="#about" class="cta-button">Khám Phá Truyền Thống</a>
-            </div>
-        </div>
-    </section>
+    <!-- Các Section Nội Dung -->
+    <!-- ĐÃ XÓA SECTION id="home" class="hero" BAN ĐẦU VÌ NÓ GÂY TRÙNG LẶP VỚI BANNER ẢNH MỚI.
+         Nội dung sẽ bắt đầu trực tiếp từ phần Giới thiệu (About). -->
 
     <section id="about" class="content-section">
         <div class="container">
@@ -340,13 +333,19 @@
         /* CSS cho banner */
         #top-banner {
             background-color: #f8f8f8;
-            padding: 10px 0;
+            padding: 0; /* Đặt padding về 0 để ảnh tràn viền */
             text-align: center;
             font-size: 14px;
             color: #333;
             border-bottom: 1px solid #eee;
+            overflow: hidden; /* Cắt phần ảnh thừa */
         }
-        
+        #top-banner img {
+            width: 100%; /* Đảm bảo ảnh chiếm hết chiều rộng của section */
+            height: auto;
+            display: block;
+        }
+
     </style>
 
     <script>
