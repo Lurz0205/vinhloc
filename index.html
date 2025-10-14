@@ -224,48 +224,30 @@
         </div>
     </footer>
 
-    <!-- START: Phần Botpress Chatbot - KHẮC PHỤC LỖI HIỂN THỊ ICON -->
-    <!-- Dùng script Botpress v3.3 -->
-    <script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>
+    <!-- START: Phần Botpress Chatbot - THAY ĐỔI CÁCH CHÈN ĐỂ ĐẢM BẢO HIỂN THỊ ICON -->
     <script>
-        const configUrl = "https://files.bpcontent.cloud/2025/10/14/11/20251014110823-MB3Y4GMX.json";
-        let isBotInitialized = false;
-
-        function initializeBotpress() {
-            // Chỉ khởi tạo một lần và chỉ khi đối tượng đã sẵn sàng
-            if (isBotInitialized || !window.botpressWebChat) return;
-
-            console.log("Botpress widget initializing...");
-            window.botpressWebChat.init({
-                configUrl: configUrl,
-                "composerPlaceholder": "Chat với chúng tôi!",
-                "botName": "Bách khoa toàn thư Vinh Lộc",
-                // Tham số quan trọng để đảm bảo nút nổi (floating button) hiển thị
-                "floatingButton": true 
-            });
-            isBotInitialized = true;
-        }
-
-        // 1. **Cách Tối Ưu:** Lắng nghe sự kiện tải Botpress chính thức
-        document.addEventListener('bp-web-widget-loaded', function() {
-            console.log("Botpress widget script has loaded via event, attempting initialization.");
-            initializeBotpress();
-        });
-
-        // 2. **Cơ Chế Dự Phòng (Fallback):** Nếu sự kiện không được kích hoạt, thử khởi tạo sau 5 giây.
-        setTimeout(function() {
-            if (!isBotInitialized) {
-                console.log("Botpress widget not initialized by event, trying fallback initialization after 5s.");
-                initializeBotpress();
-            }
-        }, 5000); // Đặt timeout 5 giây
-
-        // SCRIPT cho mobile menu: Không cần window.onload nữa, có thể chạy ngay sau khi DOM được parse
+        // SCRIPT cho mobile menu: Giữ nguyên
         document.getElementById('mobile-menu').addEventListener('click', function() {
             var nav = document.querySelector('nav');
             nav.classList.toggle('active');
         });
+        
+        // **PHƯƠNG PHÁP NHÚNG ĐỒNG BỘ MỚI**
+        // 1. Định nghĩa đối tượng cấu hình Botpress trên window
+        window.botpressWebChat = {
+            init: {
+                configUrl: "https://files.bpcontent.cloud/2025/10/14/11/20251014110823-MB3Y4GMX.json",
+                "composerPlaceholder": "Chat với chúng tôi!",
+                "botName": "Bách khoa toàn thư Vinh Lộc",
+                // Tham số quan trọng để đảm bảo nút nổi (floating button) hiển thị
+                "floatingButton": true 
+            }
+        };
+
+        // 2. Tải script Botpress ngay sau khi cấu hình được định nghĩa.
+        // Script sẽ tự động nhận cấu hình và khởi tạo chatbot ngay lập tức.
     </script>
+    <script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>
     <!-- END: Phần Botpress Chatbot -->
 
     <!-- Thêm script.js cho các chức năng khác (nếu có) -->
