@@ -224,21 +224,26 @@
         </div>
     </footer>
 
-    <!-- START: Phần Botpress Chatbot - SỬ DỤNG CONFIG URL MỚI -->
+    <!-- START: Phần Botpress Chatbot - KHẮC PHỤC LỖI TẢI CHATBOT -->
     <!-- Dùng script Botpress v3.3 -->
     <script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>
     <script>
         // Lấy Config URL từ link bạn cung cấp, chỉ lấy phần JSON
         const configUrl = "https://files.bpcontent.cloud/2025/10/14/11/20251014110823-MB3Y4GMX.json";
         
-        // Khởi tạo bot bằng Config URL
-        window.botpressWebChat.init({
-          configUrl: configUrl,
-          "composerPlaceholder": "Chat với chúng tôi!", // Thêm tùy chỉnh nếu cần
-          "botName": "Bách khoa toàn thư Vinh Lộc"
+        // **FIX: Sử dụng sự kiện 'bp-web-widget-loaded' để đảm bảo đối tượng Botpress đã sẵn sàng.**
+        // Sự kiện này được kích hoạt bởi script Botpress sau khi đối tượng window.botpressWebChat được định nghĩa.
+        document.addEventListener('bp-web-widget-loaded', function() {
+            console.log("Botpress widget script has loaded, initializing chat...");
+            // Khởi tạo bot bằng Config URL
+            window.botpressWebChat.init({
+                configUrl: configUrl,
+                "composerPlaceholder": "Chat với chúng tôi!", // Thêm tùy chỉnh nếu cần
+                "botName": "Bách khoa toàn thư Vinh Lộc"
+            });
         });
-        
-        // SCRIPT cho mobile menu
+
+        // SCRIPT cho mobile menu: Không cần window.onload nữa, có thể chạy ngay sau khi DOM được parse
         document.getElementById('mobile-menu').addEventListener('click', function() {
             var nav = document.querySelector('nav');
             nav.classList.toggle('active');
