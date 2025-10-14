@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trường THPT Vinh Lộc | Nơi Khởi Đầu Ước Mơ</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- NHÚNG FILE CSS MỚI ĐỂ ĐỊNH DẠNG VÀ SỬA LỖI NAVBAR -->
+    <link rel="stylesheet" href="style.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -31,7 +32,7 @@
         </div>
     </header>
 
-    <!-- 1. Trang Chủ (Home) -->
+    <!-- Các Section Nội Dung (Giữ nguyên) -->
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
@@ -43,7 +44,6 @@
         </div>
     </section>
 
-    <!-- 2. Giới Thiệu (About) -->
     <section id="about" class="content-section">
         <div class="container">
             <h2>Về Chúng Tôi: Truyền Thống 60 Năm</h2>
@@ -95,7 +95,6 @@
         </div>
     </section>
 
-    <!-- 3. Chương Trình Học (Programs) -->
     <section id="programs" class="content-section light-bg">
         <div class="container">
             <h2>Chương Trình Đào Tạo</h2>
@@ -116,7 +115,6 @@
         </div>
     </section>
 
-    <!-- 4. Cơ Sở Vật Chất (Facilities) -->
     <section id="facilities" class="content-section">
         <div class="container">
             <h2>Cơ Sở Vật Chất Hiện Đại</h2>
@@ -146,7 +144,6 @@
         </div>
     </section>
 
-    <!-- 5. Hoạt Động (Activities) -->
     <section id="activities" class="content-section light-bg">
         <div class="container">
             <h2>Hoạt Động & Thành Quả</h2>
@@ -180,7 +177,6 @@
         </div>
     </section>
 
-    <!-- 6. Liên Hệ (Contact) -->
     <section id="contact" class="content-section">
         <div class="container">
             <h2>Liên Hệ & Vị Trí</h2>
@@ -205,8 +201,7 @@
                 <div class="map-block">
                     <h3>Vị Trí Trường</h3>
                     <div class="map-container">
-                         <!-- BẠN CHÈN MÃ NHÚNG GOOGLE MAPS VÀO ĐÂY (Vị trí thực tế của trường) -->
-                         <!-- Mã nhúng mặc định chỉ là placeholder -->
+                         <!-- Mã nhúng Google Maps -->
                         <iframe 
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15317.291771146608!2d107.82864359999999!3d16.276495400000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31422789f28c2e6f%3A0x7000e57f3844f6f1!2zVHLGsOG7nW5nIFRIUFQgVmluaCBM4buZYw!5e0!3m2!1svi!2s!4v1700000000000!5m2!1svi!2s" 
                             width="100%" 
@@ -229,24 +224,34 @@
         </div>
     </footer>
 
-    <!-- Botpress Chatbot Script -->
-    <!-- Thay thế APP_ID_BOTPRESS bằng ID Botpress của bạn -->
+    <!-- START: Phần Botpress Chatbot -->
     <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
     <script>
         window.botpressWebChat.init({
           "composerPlaceholder": "Chat với chúng tôi!",
-          "botId": "bp_bak_IeeYOu1_XALm4HcWpr49LslgkcdAxAt-On8I", 
+          // VỊ TRÍ CẦN DÁN BOT ID THỰC TẾ CỦA BẠN VÀO ĐÂY (Ví dụ: "4d3e2f1g-1234-5678-90ab-cdef01234567")
+          "botId": "BOT_ID_CỦA_BẠN", 
           "hostUrl": "https://cdn.botpress.cloud/webchat/v1",
           "messagingUrl": "https://messaging.botpress.cloud",
           "botName": "Tư Vấn Thông Tin Trường",
+          // Bạn có thể tùy chỉnh stylesheet này nếu muốn thay đổi giao diện bot
           "stylesheet": "https://webchat-styler-css.botpress.app/prod/code/a57a0772-5197-4277-94d3-0579e26e036a/v97491/style.css",
           "lazySocket": true,
           "frontendVersion": "v1",
           "showPoweredBy": true,
-          "avatarUrl": "https://i.imgur.com/your-avatar.png" // Thay bằng ảnh đại diện của bot
+          // Thay thế placeholder bằng URL ảnh đại diện bot của bạn
+          "avatarUrl": "https://i.imgur.com/your-avatar.png" 
+        });
+        
+        // SCRIPT cho mobile menu
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            var nav = document.querySelector('nav');
+            nav.classList.toggle('active');
         });
     </script>
+    <!-- END: Phần Botpress Chatbot -->
 
-    <script src="script.js"></script>
+    <!-- Thêm script.js cho các chức năng khác (nếu có) -->
+    <script src="script.js"></script> 
 </body>
 </html>
