@@ -20,7 +20,13 @@
     <!-- Header và Menu Điều Hướng -->
     <header id="navbar">
         <div class="container">
-            <h1 class="logo"><a href="#home">Vinh Lộc</a></h1>
+            <!-- ĐÃ THAY THẾ TIÊU ĐỀ H1 BẰNG ẢNH LOGO -->
+            <h1 class="logo">
+                <!-- Chèn logo.png. Bạn nhớ thay "logo.png" bằng URL trực tiếp từ GitHub nhé! -->
+                <a href="#home">
+                    <img id="school-logo" src="logo.png" alt="Logo Trường THPT Vinh Lộc">
+                </a>
+            </h1>
             <nav>
                 <ul>
                     <li><a href="#home">Trang chủ</a></li>
@@ -40,8 +46,6 @@
     </header>
 
     <!-- Các Section Nội Dung -->
-    <!-- ĐÃ XÓA SECTION id="home" class="hero" BAN ĐẦU VÌ NÓ GÂY TRÙNG LẶP VỚI BANNER ẢNH MỚI.
-         Nội dung sẽ bắt đầu trực tiếp từ phần Giới thiệu (About). -->
 
     <section id="about" class="content-section">
         <div class="container">
@@ -344,6 +348,25 @@
             width: 100%; /* Đảm bảo ảnh chiếm hết chiều rộng của section */
             height: auto;
             display: block;
+        }
+
+        /* CSS MỚI CHO LOGO */
+        .logo a {
+            /* Loại bỏ gạch chân mặc định của thẻ a bọc ngoài logo */
+            text-decoration: none;
+        }
+        #school-logo {
+            /* Thiết lập kích thước logo */
+            height: 50px; /* Chiều cao cố định */
+            width: auto; /* Chiều rộng tự động theo tỷ lệ */
+            display: block;
+            /* Nếu logo là ảnh trong suốt (PNG) và nằm trên nền tối,
+               bạn có thể cần điều chỉnh thêm để nó nổi bật. */
+        }
+        @media (max-width: 768px) {
+            #school-logo {
+                height: 40px; /* Kích thước nhỏ hơn trên thiết bị di động */
+            }
         }
 
     </style>
