@@ -224,8 +224,45 @@
         </div>
     </footer>
 
-    <!-- START: Phần Botpress Chatbot - GIẢI PHÁP TẢI ĐỘNG VÀ KÉO DÀI THỜI GIAN -->
-    
+    <!-- START: ICON CHATBOT MỞ POPUP (Giải pháp đơn giản và đáng tin cậy) -->
+    <div id="chat-icon-container" onclick="openChatPopup()">
+        💬
+    </div>
+    <!-- END: ICON CHATBOT MỞ POPUP -->
+
+    <!-- CSS CỤ THỂ CHO ICON NỔI -->
+    <style>
+        #chat-icon-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            /* Màu xanh đậm nổi bật */
+            background-color: #004AAD; 
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Dùng emoji kích thước lớn */
+            font-size: 30px; 
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            z-index: 10000;
+            border: 3px solid #ffffff; /* Viền trắng để nổi bật hơn */
+        }
+        #chat-icon-container:hover {
+            background-color: #003780;
+            transform: scale(1.1); /* Hiệu ứng phồng lên khi di chuột/chạm */
+        }
+        /* Đảm bảo emoji hiển thị rõ trên mọi hệ thống */
+        #chat-icon-container {
+            font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+        }
+    </style>
+
     <script>
         // SCRIPT cho mobile menu: Giữ nguyên
         document.getElementById('mobile-menu').addEventListener('click', function() {
@@ -233,33 +270,15 @@
             nav.classList.toggle('active');
         });
         
-        // **GIẢI PHÁP TẢI ĐỘNG BOTPRESS V3**
-        // Đặt cấu hình và chèn script sau một độ trễ nhỏ để đảm bảo môi trường tải sẵn sàng (thường khắc phục vấn đề iframe/timing)
-        setTimeout(function() {
-            // Định nghĩa đối tượng cấu hình Botpress trên window
-            window.botpressWebChat = {
-                init: {
-                    configUrl: "https://files.bpcontent.cloud/2025/10/14/11/20251014110823-MB3Y4GMX.json",
-                    "composerPlaceholder": "Chat với chúng tôi!",
-                    "botName": "Bách khoa toàn thư Vinh Lộc",
-                    // Tham số quan trọng để đảm bảo nút nổi (floating button) hiển thị
-                    "floatingButton": true,
-                    // Tắt chế độ tự ẩn khi không hoạt động (giúp icon luôn ở đó)
-                    "enableIdleVisibility": false 
-                }
-            };
+        // **CHỨC NĂNG MỞ POPUP CHATBOT**
+        function openChatPopup() {
+            const chatUrl = "https://cdn.botpress.cloud/webchat/v3.3/shareable.html?configUrl=https://files.bpcontent.cloud/2025/10/14/11/20251014110823-MB3Y4GMX.json";
+            // Mở cửa sổ mới với kích thước cố định, lý tưởng cho chat
+            window.open(chatUrl, 'BotpressChat', 'width=420,height=650,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes');
+        }
 
-            // Tải script Botpress động (chèn thẻ script vào body)
-            const script = document.createElement('script');
-            script.src = "https://cdn.botpress.cloud/webchat/v3/inject.js";
-            script.async = true; // Tải bất đồng bộ
-            document.body.appendChild(script);
-
-        }, 100); // Độ trễ 100ms
+        // Thêm script.js cho các chức năng khác (nếu có)
     </script>
-    <!-- END: Phần Botpress Chatbot -->
-
-    <!-- Thêm script.js cho các chức năng khác (nếu có) -->
     <script src="script.js"></script> 
 </body>
 </html>
