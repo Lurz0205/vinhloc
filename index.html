@@ -10,6 +10,13 @@
 </head>
 <body>
 
+    <!-- START: KHU VỰC CHÈN BANNER TRƯỜNG HỌC -->
+    <section id="top-banner">
+        <!-- Bạn có thể chèn ảnh banner hoặc nội dung quảng cáo ngắn ở đây -->
+        <!-- Ví dụ: <img src="URL_ANH_BANNER.jpg" alt="Banner Trường Vinh Lộc"> -->
+    </section>
+    <!-- END: KHU VỰC CHÈN BANNER TRƯỜNG HỌC -->
+
     <!-- Header và Menu Điều Hướng -->
     <header id="navbar">
         <div class="container">
@@ -224,43 +231,123 @@
         </div>
     </footer>
 
-    <!-- START: ICON CHATBOT MỞ POPUP (Giải pháp đơn giản và đáng tin cậy) -->
+    <!-- START: ICON CHATBOT MỞ POPUP (Chuyển sang Modal Inline) -->
     <div id="chat-icon-container" onclick="openChatPopup()">
         💬
     </div>
     <!-- END: ICON CHATBOT MỞ POPUP -->
+    
+    <!-- START: CẤU TRÚC MODAL INLINE (POP-UP TRONG TRANG) -->
+    <div id="chat-modal-overlay" class="hidden">
+        <div id="chat-modal-content">
+            <!-- Nút đóng Pop-up -->
+            <button id="close-chat-btn" onclick="closeChatPopup()">X</button>
+            <!-- Iframe tải link chatbot -->
+            <iframe id="chatbot-iframe" src="" title="Hỗ trợ Chatbot Vinh Lộc" frameborder="0"></iframe>
+        </div>
+    </div>
+    <!-- END: CẤU TRÚC MODAL INLINE -->
 
-    <!-- CSS CỤ THỂ CHO ICON NỔI -->
+
+    <!-- CSS CỤ THỂ CHO ICON NỔI VÀ MODAL -->
     <style>
+        /* CSS cho icon nổi */
         #chat-icon-container {
             position: fixed;
             bottom: 20px;
             right: 20px;
             width: 60px;
             height: 60px;
-            /* Màu xanh đậm nổi bật */
             background-color: #004AAD; 
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Dùng emoji kích thước lớn */
             font-size: 30px; 
             cursor: pointer;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
             transition: background-color 0.3s ease, transform 0.3s ease;
-            z-index: 10000;
-            border: 3px solid #ffffff; /* Viền trắng để nổi bật hơn */
+            z-index: 9999; 
+            border: 3px solid #ffffff; 
         }
         #chat-icon-container:hover {
             background-color: #003780;
-            transform: scale(1.1); /* Hiệu ứng phồng lên khi di chuột/chạm */
+            transform: scale(1.1); 
         }
-        /* Đảm bảo emoji hiển thị rõ trên mọi hệ thống */
         #chat-icon-container {
             font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
         }
+
+        /* CSS cho Modal (Inline Pop-up) */
+        #chat-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Nền tối mờ */
+            z-index: 10001; /* Đảm bảo nổi trên tất cả */
+            display: none; /* Mặc định ẩn, được JS kích hoạt */
+            align-items: center;
+            justify-content: center;
+        }
+        .hidden {
+            display: none !important;
+        }
+        #chat-modal-content {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 420px; /* Kích thước tối ưu cho chat */
+            height: 90%;
+            max-height: 650px; 
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        #chatbot-iframe {
+            width: 100%;
+            flex-grow: 1;
+            border: none;
+            border-radius: 0 0 12px 12px; /* bo góc dưới iframe */
+        }
+        #close-chat-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #dc3545; /* Màu đỏ */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 30px;
+            padding: 0;
+            z-index: 10002;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #close-chat-btn:hover {
+            background-color: #c82333;
+        }
+
+        /* CSS cho banner */
+        #top-banner {
+            background-color: #f8f8f8;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+            border-bottom: 1px solid #eee;
+        }
+        
     </style>
 
     <script>
@@ -270,12 +357,34 @@
             nav.classList.toggle('active');
         });
         
-        // **CHỨC NĂNG MỞ POPUP CHATBOT**
+        // **CHỨC NĂNG MỞ POPUP CHATBOT (Inline Modal)**
         function openChatPopup() {
             const chatUrl = "https://cdn.botpress.cloud/webchat/v3.3/shareable.html?configUrl=https://files.bpcontent.cloud/2025/10/14/11/20251014110823-MB3Y4GMX.json";
-            // Mở cửa sổ mới với kích thước cố định, lý tưởng cho chat
-            window.open(chatUrl, 'BotpressChat', 'width=420,height=650,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes');
+            const iframe = document.getElementById('chatbot-iframe');
+            const modal = document.getElementById('chat-modal-overlay');
+            
+            // 1. Tải URL vào iframe
+            iframe.src = chatUrl;
+            // 2. Hiển thị modal (chuyển đổi class để loại bỏ 'hidden' và buộc display: flex)
+            modal.classList.remove('hidden');
+            modal.style.display = 'flex';
         }
+
+        // **CHỨC NĂNG ĐÓNG POPUP CHATBOT**
+        function closeChatPopup() {
+            const modal = document.getElementById('chat-modal-overlay');
+            // Ẩn modal (chuyển đổi class để thêm 'hidden' và buộc display: none)
+            modal.classList.add('hidden');
+            modal.style.display = 'none';
+        }
+
+        // Xử lý sự kiện nhấp chuột bên ngoài modal để đóng
+        document.getElementById('chat-modal-overlay').addEventListener('click', function(event) {
+            // Kiểm tra xem nhấp chuột có trúng chính lớp phủ không
+            if (event.target === this) {
+                closeChatPopup();
+            }
+        });
 
         // Thêm script.js cho các chức năng khác (nếu có)
     </script>
